@@ -312,8 +312,15 @@ $(document).ready(() => {
   $("button.execute").click(() => {
     const heading = document.getElementById("main-heading");
     const inputVal = document.getElementById("main-input").value;
+    const hexCodeValidation = /^#([0-9A-F]{3}){1,2}$/i;
 
-    if (/^#([0-9A-F]{3}){1,2}$/i.test(inputVal)) heading.style.color = inputVal;
+    if (hexCodeValidation.test(inputVal)) {
+      heading.style.color = inputVal;
+    } else {
+      $(".filterDetail").html(`<b>Not a valid hex color code</b>`);
+      $(".lossDetail").html(``);
+      heading.style.color = "#333";
+    }
 
     const rgb = hexToRgb($("input.target").val());
     if (rgb.length !== 3) {
